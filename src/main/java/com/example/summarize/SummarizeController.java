@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class SummarizeController {
 
+    private final ClaudeService claudeService;
+
+    public SummarizeController(ClaudeService claudeService) {
+        this.claudeService = claudeService;
+    }
+
     record SummarizeRequest(String text) {}
     record SummarizeResponse(String summary) {}
 
     @PostMapping("/summarize")
-    public SummarizeResponse summarize(@RequestBody SummarizeRequest request) {
-        // TODO: replace with real summarization logic
-        String summary = request.text().length() > 100
-            ? request.text().substring(0, 100) + "..."
-            : request.text();
-        return new SummarizeResponse(summary);
+    public SummarizeResponse summarize(@RequestBody SummarizeRequest request) throws Exception {
+        return new SummarizeResponse(claudeService.summarize(request.text()));
     }
 }
