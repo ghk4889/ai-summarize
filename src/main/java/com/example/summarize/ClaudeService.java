@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.net.ssl.*;
+import java.security.KeyStore;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +16,27 @@ public class ClaudeService {
     private static final String API_URL = "https://api.anthropic.com/v1/messages";
     private static final MediaType JSON = MediaType.get("application/json");
 
-    private final OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient client = createClient();
     private final ObjectMapper mapper = new ObjectMapper();
+
+    private static OkHttpClient createClient() {
+        try {
+            String cacertsPath = System.getProperty("java.home") + "/lib/security/cacerts";
+            KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            try (java.io.FileInputStream fis = new java.io.FileInputStream(cacertsPath)) {
+                trustStore.load(fis, "changeit".toCharArray());
+            }
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            tmf.init(trustStore);
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, tmf.getTrustManagers(), null);
+            return new OkHttpClient.Builder()
+                .sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) tmf.getTrustManagers()[0])
+                .build();
+        } catch (Exception e) {
+            throw new RuntimeException("SSL 컨텍스트 초기화 실패", e);
+        }
+    }
 
     @Value("${claude.api.key}")
     private String apiKey;
