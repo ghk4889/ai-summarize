@@ -1,5 +1,6 @@
 {
-  "name": "Default",
+  "name": "ai-summarize-dev",
+
   "image": "ubuntu:24.04",
 
   "workspaceFolder": "/workspace",
@@ -31,8 +32,7 @@
     "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64"
   },
 
-  "workspaceFolder": "/workspace",
-  "runArgs": ["--env-file", "/workspace/.env"],
+  "runArgs": ["--env-file", "../.env"],
 
   "postCreateCommand": "apt update && apt install -y curl vim && npm install -g @anthropic-ai/claude-code && npm install || true && ./gradlew build || true && git config --global --add safe.directory /workspace",
 
