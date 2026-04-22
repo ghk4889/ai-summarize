@@ -31,7 +31,8 @@
     "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64"
   },
 
-  "runArgs": ["--env-file", "../.env"],
+  "workspaceFolder": "/workspace",
+  "runArgs": ["--env-file", "/workspace/.env"],
 
   "postCreateCommand": "apt update && apt install -y curl vim && npm install -g @anthropic-ai/claude-code && npm install || true && ./gradlew build || true && git config --global --add safe.directory /workspace",
 
