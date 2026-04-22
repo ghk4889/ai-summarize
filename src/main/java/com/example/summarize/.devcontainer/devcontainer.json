@@ -1,0 +1,39 @@
+{
+  "name": "Default",
+  "image": "ubuntu:24.04",
+
+  "workspaceFolder": "/workspace",
+
+  "customizations": {
+    "jetbrains": {
+      "backend": "IntelliJ",
+      "plugins": [
+        "org.jetbrains.plugins.nodeJS",
+        "com.intellij.spring.boot",
+        "org.jetbrains.plugins.yaml"
+      ]
+    }
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/git": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21"
+    }
+  },
+
+  "forwardPorts": [3000, 8080],
+
+  "containerEnv": {
+    "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64"
+  },
+
+  "runArgs": ["--env-file", "../.env"],
+
+  "postCreateCommand": "apt update && apt install -y curl vim && npm install -g @anthropic-ai/claude-code && npm install || true && ./gradlew build || true && git config --global --add safe.directory /workspace",
+
+  "remoteUser": "ubuntu"
+}
