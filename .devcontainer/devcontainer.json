@@ -34,7 +34,7 @@
 
   // "runArgs": ["--env-file", "../.env"],
 
-  "postCreateCommand": "apt update && apt install -y curl vim && npm install -g @anthropic-ai/claude-code && npm install || true && ./gradlew build || true && git config --global --add safe.directory /workspace",
+  "postCreateCommand": "set -e; apt update && apt install -y curl vim ca-certificates gnupg && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y nodejs && npm install -g @anthropic-ai/claude-code && npm install && ./gradlew build && git config --global --add safe.directory /workspace",
 
   "remoteUser": "ubuntu"
 }
