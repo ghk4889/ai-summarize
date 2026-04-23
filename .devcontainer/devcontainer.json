@@ -1,9 +1,18 @@
 {
   "name": "ai-summarize-dev",
-
-  "image": "ubuntu:24.04",
-
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
   "workspaceFolder": "/workspace",
+
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "installGradle": "true"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
 
   "customizations": {
     "jetbrains": {
@@ -16,22 +25,8 @@
     }
   },
 
-  "features": {
-    "ghcr.io/devcontainers/features/git": {},
-    "ghcr.io/devcontainers/features/java:1": {
-      "version": "21"
-    }
-  },
-
   "forwardPorts": [3000, 8080],
 
-  "containerEnv": {
-    "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64"
-  },
-
-  // "runArgs": ["--env-file", "../.env"],
-
-  "postCreateCommand": "set -e; apt update && apt install -y curl vim ca-certificates gnupg && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt install -y nodejs && npm install -g @anthropic-ai/claude-code && npm install && ./gradlew build && git config --global --add safe.directory /workspace",
-
-  "remoteUser": "ubuntu"
+  "postCreateCommand": "npm install && ./gradlew build",
+  "remoteUser": "vscode"
 }
