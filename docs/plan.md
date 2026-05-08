@@ -34,7 +34,7 @@
 - 프롬프트 개선: summary / keyPoints / actions 구조화된 JSON 응답 유도
 - 응답 파싱 로직 추가
 
-### Day 4 — 프론트-백 연동 완성
+### Day 4 ✅ — 프론트-백 연동 완성
 - CORS 설정
 - 로딩 상태 / 에러 처리 UI
 - 요약 결과(summary, keyPoints, actions) 카드형 표시
