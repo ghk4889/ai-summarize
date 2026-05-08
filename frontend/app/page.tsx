@@ -81,27 +81,33 @@ export default function Home() {
         )}
 
         {result && (
-          <div className="space-y-4">
-            <div className="p-6 bg-white rounded-lg shadow">
-              <h2 className="text-lg font-semibold mb-2">📝 요약</h2>
-              <p className="text-gray-700">{result.summary}</p>
+          <div className="space-y-4 animate-[fadeIn_0.3s_ease-in]">
+            <div className="p-6 bg-white rounded-lg shadow border-l-4 border-blue-500">
+              <h2 className="text-lg font-semibold mb-2 text-blue-700">📝 요약</h2>
+              <p className="text-gray-700 leading-relaxed">{result.summary}</p>
             </div>
 
-            <div className="p-6 bg-white rounded-lg shadow">
-              <h2 className="text-lg font-semibold mb-2">🔑 핵심 포인트</h2>
-              <ul className="list-disc list-inside space-y-1 text-gray-700">
+            <div className="p-6 bg-white rounded-lg shadow border-l-4 border-amber-500">
+              <h2 className="text-lg font-semibold mb-2 text-amber-700">🔑 핵심 포인트</h2>
+              <ul className="space-y-2 text-gray-700">
                 {result.keyPoints.map((point, i) => (
-                  <li key={i}>{point}</li>
+                  <li key={i} className="flex gap-2">
+                    <span className="text-amber-500 font-bold">•</span>
+                    <span>{point}</span>
+                  </li>
                 ))}
               </ul>
             </div>
 
             {result.actions.length > 0 && (
-              <div className="p-6 bg-white rounded-lg shadow">
-                <h2 className="text-lg font-semibold mb-2">✅ 액션 아이템</h2>
-                <ul className="list-disc list-inside space-y-1 text-gray-700">
+              <div className="p-6 bg-white rounded-lg shadow border-l-4 border-green-500">
+                <h2 className="text-lg font-semibold mb-2 text-green-700">✅ 액션 아이템</h2>
+                <ul className="space-y-2 text-gray-700">
                   {result.actions.map((action, i) => (
-                    <li key={i}>{action}</li>
+                    <li key={i} className="flex gap-2">
+                      <span className="text-green-500 font-bold">•</span>
+                      <span>{action}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
