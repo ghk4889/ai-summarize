@@ -29,11 +29,18 @@ export default function Home() {
         body: JSON.stringify({ text }),
       });
 
-      if (!res.ok) throw new Error(`Error: ${res.status}`);
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error || `서버 오류 (${res.status})`);
+      }
       const data: SummarizeResult = await res.json();
       setResult(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "요약 중 오류가 발생했습니다.");
+      if (err instanceof TypeError) {
+        setError("서버에 연결할 수 없습니다. 백엔드가 실행 중인지 확인해주세요.");
+      } else {
+        setError(err instanceof Error ? err.message : "요약 중 오류가 발생했습니다.");
+      }
     } finally {
       setLoading(false);
     }
