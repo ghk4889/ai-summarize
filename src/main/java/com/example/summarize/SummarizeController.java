@@ -13,14 +13,13 @@ public class SummarizeController {
     }
 
     record SummarizeRequest(String text) {}
-    record SummarizeResponse(String summary) {}
 
     @PostMapping("/summarize")
-    public SummarizeResponse summarize(@RequestBody SummarizeRequest request) throws Exception {
+    public SummarizeResult summarize(@RequestBody SummarizeRequest request) throws Exception {
         if (request.text() == null || request.text().isBlank()) {
             throw new org.springframework.web.server.ResponseStatusException(
                 org.springframework.http.HttpStatus.BAD_REQUEST, "text must not be empty");
         }
-        return new SummarizeResponse(claudeService.summarize(request.text()));
+        return claudeService.summarize(request.text());
     }
 }
