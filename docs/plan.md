@@ -40,7 +40,7 @@
 - 요약 결과(summary, keyPoints, actions) 카드형 표시
 - 기본 동작 E2E 확인
 
-### Day 5 — 배포 준비
+### Day 5 ✅ — 배포 준비
 - Backend: Docker 이미지 빌드 설정
 - Frontend: Vercel 배포 설정
 - 환경변수 분리 (API key 등)
