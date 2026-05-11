@@ -45,7 +45,7 @@
 - Frontend: Vercel 배포 설정
 - 환경변수 분리 (API key 등)
 
-### Day 6 — 배포 실행
+### Day 6 ✅ — 배포 실행
 - Backend 배포 (AWS EC2 / Railway / Render)
 - Frontend Vercel 배포
 - 실서비스 동작 확인
