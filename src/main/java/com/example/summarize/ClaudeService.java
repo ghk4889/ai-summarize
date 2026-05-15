@@ -19,7 +19,10 @@ public class ClaudeService {
             {"summary":"A concise 2-3 sentence summary","keyPoints":["key point 1","key point 2","key point 3"],"actions":["action item 1","action item 2"]}
             Rules: summary is a brief overview. keyPoints are the most important facts (3-5 items). actions are actionable next steps if any (0-3 items, empty array if none). Respond with ONLY the JSON, no markdown or explanation.""";
 
-    private final OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient client = new OkHttpClient.Builder()
+        .connectTimeout(java.time.Duration.ofSeconds(10))
+        .readTimeout(java.time.Duration.ofSeconds(30))
+        .build();
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Value("${claude.api.key}")

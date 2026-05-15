@@ -20,6 +20,10 @@ public class SummarizeController {
             throw new org.springframework.web.server.ResponseStatusException(
                 org.springframework.http.HttpStatus.BAD_REQUEST, "text must not be empty");
         }
+        if (request.text().length() > 500) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                org.springframework.http.HttpStatus.BAD_REQUEST, "text must not exceed 500 characters");
+        }
         return claudeService.summarize(request.text());
     }
 }

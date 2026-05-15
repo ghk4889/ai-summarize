@@ -41,7 +41,7 @@ http://localhost:3000 에서 접속
 - [x] Day 3: Frontend setup + prompt improvement + 연동
 - [x] Day 4: 프론트-백 연동 완성 (CORS / 에러 처리 / E2E)
 - [x] Day 5: 배포 준비 (Docker, Vercel, 환경변수 분리)
-- [ ] Day 6: 배포 실행
+- [x] Day 6: 배포 실행
 - [ ] Day 7: 안정화 + 버그 수정
 - [ ] Day 8: UX 개선 + PDF 업로드
 - [ ] Day 9: 요약 히스토리 (선택)

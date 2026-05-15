@@ -14,6 +14,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const MAX_LENGTH = 500;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!text.trim()) return;
@@ -56,9 +58,13 @@ export default function Home() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             disabled={loading}
+            maxLength={MAX_LENGTH}
             placeholder="요약할 텍스트를 입력하세요..."
             className="w-full h-48 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
           />
+          <div className="mt-1 text-right text-sm text-gray-500">
+            <span className={text.length > 400 ? "text-red-500" : ""}>{text.length.toLocaleString()}</span> / {MAX_LENGTH.toLocaleString()}자
+          </div>
           <button
             type="submit"
             disabled={loading || !text.trim()}
