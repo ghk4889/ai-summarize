@@ -120,8 +120,11 @@ export default function Home() {
                 className="w-full h-48 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
               {/* 글자 수 카운터 (400자 초과 시 빨간색으로 변경) */}
-              <div className="mt-1 text-right text-sm text-gray-500">
-                <span className={text.length > 400 ? "text-red-500" : ""}>{text.length.toLocaleString()}</span> / {MAX_LENGTH.toLocaleString()}자
+              <div className="mt-1 flex justify-between text-sm text-gray-500">
+                <button type="button" onClick={() => setText("Artificial intelligence is transforming industries worldwide. Companies are leveraging AI to automate repetitive tasks, enhance decision-making processes, and create personalized customer experiences. However, this rapid adoption raises important questions about job displacement, data privacy, and ethical use of technology. Organizations must balance innovation with responsible implementation.")} className="text-blue-500 hover:text-blue-700">
+                  예시 텍스트로 시도
+                </button>
+                <span><span className={text.length > 400 ? "text-red-500" : ""}>{text.length.toLocaleString()}</span> / {MAX_LENGTH.toLocaleString()}자</span>
               </div>
             </>
           ) : (
