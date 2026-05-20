@@ -118,8 +118,23 @@ export default function Home() {
               </div>
             </>
           ) : (
-            /* PDF 업로드 영역 */
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+            /* PDF 업로드 영역 (클릭 + 드래그앤드롭) */
+            <div
+              className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors"
+              onDragOver={(e) => { e.preventDefault(); e.currentTarget.classList.add("border-blue-500", "bg-blue-50"); }}
+              onDragLeave={(e) => { e.currentTarget.classList.remove("border-blue-500", "bg-blue-50"); }}
+              onDrop={(e) => {
+                e.preventDefault();
+                e.currentTarget.classList.remove("border-blue-500", "bg-blue-50");
+                const file = e.dataTransfer.files[0];
+                if (file && file.type === "application/pdf") {
+                  const dt = new DataTransfer();
+                  dt.items.add(file);
+                  if (fileRef.current) fileRef.current.files = dt.files;
+                  setFileName(file.name);
+                }
+              }}
+            >
               {/* 실제 file input은 숨기고, label 클릭으로 파일 선택창 열기 */}
               <input
                 ref={fileRef}          // 코드에서 파일 접근용 참조
@@ -134,7 +149,7 @@ export default function Home() {
               <label htmlFor="pdf-upload" className="cursor-pointer">
                 <div className="text-4xl mb-2">📄</div>
                 <p className="text-gray-600">{fileName || "PDF 파일을 선택하세요"}</p>
-                <p className="text-sm text-gray-400 mt-1">클릭하여 파일 선택</p>
+                <p className="text-sm text-gray-400 mt-1">클릭 또는 드래그앤드롭</p>
               </label>
             </div>
           )}
