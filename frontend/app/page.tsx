@@ -17,11 +17,18 @@ export default function Home() {
   const [error, setError] = useState("");                       // 에러 메시지
   const [mode, setMode] = useState<"text" | "pdf">("text");     // 현재 탭 (텍스트/PDF)
   const [fileName, setFileName] = useState("");                 // 선택된 PDF 파일명
+  const [copied, setCopied] = useState("");                     // 복사 피드백
 
   // 숨겨진 file input을 코드에서 직접 조작하기 위한 참조
   const fileRef = useRef<HTMLInputElement>(null);
 
   const MAX_LENGTH = 500; // 텍스트 최대 입력 글자 수
+
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(label);
+    setTimeout(() => setCopied(""), 2000);
+  };
 
   // 폼 제출 핸들러 (요약하기 버튼 클릭 시 실행)
   const handleSubmit = async (e: React.FormEvent) => {
@@ -183,13 +190,23 @@ export default function Home() {
           <div className="space-y-4 animate-[fadeIn_0.3s_ease-in]">
             {/* 요약문 카드 */}
             <div className="p-6 bg-white rounded-lg shadow border-l-4 border-blue-500">
-              <h2 className="text-lg font-semibold mb-2 text-blue-700">📝 요약</h2>
+              <div className="flex justify-between items-center mb-2">
+                <h2 className="text-lg font-semibold text-blue-700">📝 요약</h2>
+                <button onClick={() => copyToClipboard(result.summary, "summary")} className="text-sm text-gray-400 hover:text-blue-600">
+                  {copied === "summary" ? "✓ 복사됨" : "복사"}
+                </button>
+              </div>
               <p className="text-gray-700 leading-relaxed">{result.summary}</p>
             </div>
 
             {/* 핵심 포인트 카드 */}
             <div className="p-6 bg-white rounded-lg shadow border-l-4 border-amber-500">
-              <h2 className="text-lg font-semibold mb-2 text-amber-700">🔑 핵심 포인트</h2>
+              <div className="flex justify-between items-center mb-2">
+                <h2 className="text-lg font-semibold text-amber-700">🔑 핵심 포인트</h2>
+                <button onClick={() => copyToClipboard(result.keyPoints.join("\n"), "keyPoints")} className="text-sm text-gray-400 hover:text-amber-600">
+                  {copied === "keyPoints" ? "✓ 복사됨" : "복사"}
+                </button>
+              </div>
               <ul className="space-y-2 text-gray-700">
                 {result.keyPoints.map((point, i) => (
                   <li key={i} className="flex gap-2">
@@ -203,7 +220,12 @@ export default function Home() {
             {/* 액션 아이템 카드 (있을 때만 표시) */}
             {result.actions.length > 0 && (
               <div className="p-6 bg-white rounded-lg shadow border-l-4 border-green-500">
-                <h2 className="text-lg font-semibold mb-2 text-green-700">✅ 액션 아이템</h2>
+                <div className="flex justify-between items-center mb-2">
+                  <h2 className="text-lg font-semibold text-green-700">✅ 액션 아이템</h2>
+                  <button onClick={() => copyToClipboard(result.actions.join("\n"), "actions")} className="text-sm text-gray-400 hover:text-green-600">
+                    {copied === "actions" ? "✓ 복사됨" : "복사"}
+                  </button>
+                </div>
                 <ul className="space-y-2 text-gray-700">
                   {result.actions.map((action, i) => (
                     <li key={i} className="flex gap-2">
