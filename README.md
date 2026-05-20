@@ -43,7 +43,7 @@ http://localhost:3000 에서 접속
 - [x] Day 5: 배포 준비 (Docker, Vercel, 환경변수 분리)
 - [x] Day 6: 배포 실행
 - [x] Day 7: 안정화 + 버그 수정
-- [ ] Day 8: UX 개선 + PDF 업로드
+- [x] Day 8: UX 개선 + PDF 업로드
 - [ ] Day 9: 요약 히스토리 (선택)
 - [ ] Day 10: README + 문서 정리
 - [ ] Day 11: 블로그 글 작성 (1)
